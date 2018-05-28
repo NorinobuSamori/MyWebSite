@@ -1,0 +1,47 @@
+
+mysql> 
+CREATE DATABASE ece_db DEFAULT CHARACTER SET utf8;
+
+USE ece_db;
+
+CREATE TABLE user_info (
+id SERIAL
+,login_id varchar(255) UNIQUE NOT NULL
+,name varchar(255) NOT NULL
+,birth_date DATE NOT NULL
+,password varchar(255) NOT NULL
+,create_date DATETIME NOT NULL
+,update_date DATETIME NOT NULL
+);
+INSERT INTO user_info SET id=1, login_id='admin', name='ä«óùé“',birth_date='1995-04-27', password='0CC175B9C0F1B6A831C399E269772661',create_date='2018-04-02 14:30:00',update_date='2018-04-02 15:00:00';
+INSERT INTO user_info SET id=2, login_id='0CC175B9C0F1B6A831C399E269772661', name='a',birth_date='1995-04-27', password='0CC175B9C0F1B6A831C399E269772661',create_date='2018-04-02 14:30:00',update_date='2018-04-02 15:00:00';
+
+
+
+CREATE TABLE event_detail (
+id SERIAL
+,title varchar(255) NOT NULL
+,img_name varchar(255) NOT NULL
+,summary varchar(255) NOT NULL
+,event_category varchar(255) NOT NULL
+,schedule varchar(255) NOT NULL
+,local_region varchar(255) NOT NULL
+,fees int(11) NOT NULL
+,access varchar(255) NOT NULL
+,qualification varchar(255) NOT NULL
+,presenter varchar(255) NOT NULL
+,organizer varchar(255) NOT NULL
+);
+
+
+
+CREATE TABLE user_event_history (
+id SERIAL
+,user_id int(11) NOT NULL
+,total_fees int(11) NOT NULL
+,create_date DATETIME NOT NULL
+);
+
+
+
+Å¶0CC175B9C0F1B6A831C399E269772661ÇÕMD5Ç≈à√çÜâªÇ≥ÇÍÇΩÅuaÅvÇ≈Ç∑

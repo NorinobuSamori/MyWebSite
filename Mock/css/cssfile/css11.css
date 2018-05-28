@@ -1,0 +1,251 @@
+.testcssfile{
+    background-color: orange;
+}
+.a{
+}
+.test1{
+    background-color: aquamarine;
+}
+.test2{
+    background-color: orange;
+}
+.test3{
+    background-color: chartreuse;
+}
+.test4{
+    background-color: khaki;
+}
+.color5{
+    background-color: #e0fa98 ;
+}
+.header1{
+    background-color: #82c824;
+    height: 64px;
+    vertical-align:middle;
+}
+.header-fonts{
+    color:white;
+    font-size: 30px;
+}
+.header-fonts2{
+    color:white;
+    font-size: 24px;
+}
+.display-inline{
+    display: inline;
+}
+.inline-flex{
+    display: inline-flex;
+}
+.for-search-input-image{
+    background-image: url??????;
+    font-family: "Font Awesome 5 Free";
+    content: '\f002';
+}
+.footer1{
+    background-color: #795548;
+    
+    line-height: 1.5;
+    font-size: 15px;
+}
+.color-lightgreen{
+    background-color:#acf8ce ;
+}
+.testred{
+    background-color:red;
+}
+.blockC{
+    background-color:#ff0;  /* 黄 */
+    height:150px;
+    width:150px;
+}
+.u-red{
+    color: red;
+    text-decoration: underline;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.px150{
+    display: inline-block;
+    width:150px;
+}
+.px200{
+    display: inline-block;
+    width:200px;
+}
+.px250{
+    display: inline-block;
+    width:250px;
+}
+.heightpx80{
+    display: inline-block;
+    height:80px;
+}
+.color-white{
+    background-color:  white;
+}
+.align-left{
+    text-align: left;
+}
+.align-center{
+    text-align: center;
+}
+.align-right{
+    text-align: right;
+}
+
+.kadomaru1{
+    
+}
+.marginall{
+    margin: 30px 30px 30px 30px;
+}
+
+.margin2{
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.marginright120{
+    margin-right: 120px;
+}
+.margin1313{
+    margin: 10px 30px 10px 30px;
+}
+.marginright120{
+    margin-right:120px;
+}
+.margin7070{
+    margin-left: 70px;
+    margin-right: 70px;
+}
+.margin-top-bottom1{
+    margin-top:20px;
+    margin-bottom:30px;
+}
+.width{
+width: 24rem;
+}
+.btncolor1{
+    background-color: orange;
+    color: #FFF;
+    padding: 16px 0px;
+}
+.pptxcolor-light-yellow{
+    background-color:  #fafa98;
+}
+.pptxcolor-green-yellow{
+background-color: #3bfa90;
+}
+.dldtdd{
+    display: table;
+}
+.width100{
+    width:100%;
+}
+.width50{
+    width:50%;
+}
+.margin1{
+    margin:30px 30px;
+}
+.margin2{
+    margin:10px 7px;
+}
+.width25{
+    width:500px;
+}
+
+
+
+/*-----------------------------------------------------------------------------以下class-tableシリーズ----------------------*/
+
+
+.block{
+    display: table;
+    margin: 20px 0;
+}
+.block__element{
+    display: table-cell;
+    width: 130px;
+    padding: 9px;
+    border: 1px solid #666;
+}
+
+
+
+.class-table {
+    display:table;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+}
+
+.class-table-row{
+    display:table-row;
+}
+
+.class-table-cell{
+    display:table-cell;
+    border: 1px solid #cccccc;
+    padding: 10px 7px;
+}
+.class-table-cell-left1{
+    background-color: #fafa98;
+    width:100px;
+    
+}
+.class-table-cell-right1{
+    background-color: white;
+}
+.width1{
+    width:86%;
+}
+.width2{
+    width:95%;
+}
+
+.border-radius{
+
+    border-collapse:separate;
+    border-radius: 10px;
+
+}
+/*-----------------------------------------------------------------------------以上class-tableシリーズ----------------------*/
+
+
+.form-control22 {
+    /* width100%を消去--> */
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+/* 以下、LIKEIT様のCSS */
+
+
+/*
+* Card component
+*/
+.card {
+    background-color: #F7F7F7;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
