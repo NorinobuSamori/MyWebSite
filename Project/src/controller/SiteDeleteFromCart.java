@@ -14,19 +14,16 @@ import dao.EventDetailInfoDao;
 import model.BeansEventDetailInfo;
 
 /**
- * Servlet implementation class SiteAddToCart
+ * Servlet implementation class SiteDeleteFromCart
  */
-
-
-////モデルはItemAdd.java
-@WebServlet("/SiteAddToCart")
-public class SiteAddToCart extends HttpServlet {
+@WebServlet("/SiteDeleteFromCart")
+public class SiteDeleteFromCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiteAddToCart() {
+    public SiteDeleteFromCart() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,13 +33,6 @@ public class SiteAddToCart extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		try {
 			//AddtoCartボタンによって送信されたevent_idに紐づいているevent1つを取り出す
@@ -50,47 +40,40 @@ public class SiteAddToCart extends HttpServlet {
 			EventDetailInfoDao eventDetailInfoDao = new EventDetailInfoDao();
 			BeansEventDetailInfo beansEventDetailInfo  = eventDetailInfoDao.SelectOneEventDetailInfo(event_id);
 
-			request.setAttribute("beansEventDetailInfo", beansEventDetailInfo);
 
 
 
 			//inCartEventListをセッション取得
 			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = (ArrayList<BeansEventDetailInfo>) session.getAttribute("beansEventDetailInfoList");
-			//セッションにカートがない場合カートを作成
-			if (beansEventDetailInfoList == null) {
-				beansEventDetailInfoList = new ArrayList<BeansEventDetailInfo>();
-			}
 
 
-			//カートにすでに同じ商品が入っているかどうかの確認
+
+			//カート内に同じ商品が入っていたら、リストから削除
 			for(int i = 0 ; i < beansEventDetailInfoList.size() ; i++) {
 				if(beansEventDetailInfoList.get(i).getId() == beansEventDetailInfo.getId()) {
-					session.setAttribute("cartErrorActionMessage", "カートに同じイベントがすでに入っております");
-					System.out.println("SiteAddToCartからSiteInCartに、イベント重複エラーによるリダイレクト");
-					response.sendRedirect("SiteInCart");
-					return;
+					//リストから(i)番目を削除
+					beansEventDetailInfoList.remove(i);
 				}
 			}
 
-			//inCartEventListに加えて再びinCartEventListセッションをセットする
-			beansEventDetailInfoList.add(beansEventDetailInfo);
+			//最後にカートリストをセッションセット
 			session.setAttribute("beansEventDetailInfoList", beansEventDetailInfoList);
 
-
-
-			//エラーが無かった場合
-			session.setAttribute("cartActionMessage", "イベントを追加しました");
-			System.out.println("SiteAddToCartからSiteInCartにエラーなくリダイレクト");
+			//最後にリダイレクト
+			session.setAttribute("deleteFromCartActionMessage", "カートからイベントを削除しました");
+			System.out.println("SiteDeleteFromCartからSiteInCartにエラーなくリダイレクト");
 			response.sendRedirect("SiteInCart");
 
 
-			//対象のアイテム情報を取得
 		} catch (Exception e) {
-			System.out.println("SiteAddToCart内エラー");
+			System.out.println("Error on SiteDeleteFromCart");
 			e.printStackTrace();
 			request.setAttribute("errorMessage", e.toString());
 			response.sendRedirect("Error");
 		}
 	}
+
+
+
 
 }

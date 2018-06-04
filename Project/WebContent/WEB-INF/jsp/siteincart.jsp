@@ -7,81 +7,44 @@
 <title>カートページ</title>
 <jsp:include page="/baselayout/head.jsp" />
 </head>
-<body class="color-lightgreen">
+<body class="background-color1">
 	<jsp:include page="/baselayout/header.jsp" />
 	<div class="container ">
 
-    <br>
-    <br>
-    <h1 class="text-center">カートページ</h1>
-    <br>
-	<jsp:include page="/baselayout/actionMessage.jsp" />
-	<br>
-	<br>
-	<p class="align-center ">
-        <a href="SiteInProceedToCheckout" class="btn col btncolor1 ">
-            <span class="a">レジに進む</span>
-        </a>
-    </p>
+	    <br>
+	    <br>
+	    <div class="text-center card">
+	    	<h1 >カートページ</h1>
+	    	<jsp:include page="/baselayout/actionMessage.jsp" />
+		</div>
+	    <br>
+		<br>
+		<br>
 
 
-		<c:forEach var="inCartBeansEventDetailInfoListOne" items="${inCartBeansEventDetailInfoList}"  begin="0">
-	        <div class="card grey lighten-5 width1">
-	            <div class="class-table width2 border-radius ">
-	                <div class="class-table-row ">
-	                    <div class="class-table-cell class-table-cell-left2">
-	                        <img src="img/${inCartBeansEventDetailInfoListOne.img_name}">
-	                    </div>
-	                    <div class="class-table-cell class-table-cell-right1">
-	                        <h5>
-	                        	${inCartBeansEventDetailInfoListOne.title}
-							</h5>
-	                    </div>
-	                </div>
-	                <div class="class-table-row">
-	                    <div class=" class-table-cell class-table-cell-left1">募集分類</div>
-	                    <div class="class-table-cell class-table-cell-right1">${inCartBeansEventDetailInfoListOne.event_category}</div>
-	                </div>
-	                <div class="class-table-row ">
-	                    <div class="class-table-cell class-table-cell-left1">日程</div>
-	                    <div class="class-table-cell class-table-cell-right1">${inCartBeansEventDetailInfoListOne.schedule}</div>
-	                </div>
-	                <div class="class-table-row">
-	                    <div class="class-table-cell class-table-cell-left1">参加費用</div>
-	                    <div class="class-table-cell class-table-cell-right1">
-	                        ${inCartBeansEventDetailInfoListOne.fees}円
-	                    </div>
-	                </div>
-	                <div class="class-table-row">
-	                    <div class="class-table-cell class-table-cell-left1">参加資格</div>
-	                    <div class="class-table-cell class-table-cell-right1">
-	                        ${inCartBeansEventDetailInfoListOne.qualification}
-	                    </div>
-	                </div>
-	                <div class="class-table-row">
-	                    <div class="class-table-cell class-table-cell-left1">主催</div>
-	                    <div class="class-table-cell class-table-cell-right1">
-	                        ${inCartBeansEventDetailInfoListOne.organizer}
-	                    </div>
-	                </div>
-	                <div class="class-table-row">
-	                    <div class=" class-table-cell class-table-cell-left1"></div>
-	                    <div class="class-table-cell class-table-cell-right1">
-	                        <div class="a">
-	                            <p class="align-center ">
-	                                <a href="SiteEventDetailInfo?event_id=${inCartBeansEventDetailInfoListOne.id}" class="btn col btncolor1 ">
-	                                        <span class="a">イベント詳細へ</span>
-	                                </a>
-	                                <a href="SiteInRemoveFromCart?event_id=${inCartBeansEventDetailInfoListOne.id}" class="btn col btncolor1 ">
-	                                        <span class="a">カートから削除する</span>
-	                                </a>
-	                            </p>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </c:forEach>
+
+		<c:if test="${cartNullBySiteInCart != null}" >
+			<div class="text-center row">
+
+				<a href="Index" class="btn col btn2">引き続きイベントを探す</a>
+		        <a href="SiteInProceedToCheckout" class="btn col btncolor1">レジに進む</a>
+		    </div>
+	    </c:if>
+	    <c:if test="${cartNullBySiteInCart == null}" >
+			<div class="text-center ">
+		        <a href="Index" class="btn col btncolor1 ">
+		            <span class="a">トップページに戻る</span>
+		        </a>
+		    </div>
+	    </c:if>
+
+
+		<jsp:include page="/event-tables/event-summary-table-list.jsp" />
+
+
+
+
+
 	</div>
 
     <jsp:include page="/baselayout/footer.jsp" />

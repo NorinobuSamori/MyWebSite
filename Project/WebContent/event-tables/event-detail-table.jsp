@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 
-<div class="card grey lighten-5 width1">
+
 	<div class="class-table width2 border-radius ">
 		<div class="class-table-row ">
 			<div class="class-table-cell class-table-cell-left2">
@@ -50,19 +50,17 @@
 		<div class="class-table-row">
 			<div class=" class-table-cell class-table-cell-left1"></div>
 			<div class="class-table-cell class-table-cell-right1">
-				<div class="a">
-					<div class="text-center row">
-						<form class="a" action="SiteAddToCart" method="post">
-							<button class="btn col btncolor1" type="submit" name="event_id"
-								value="${beansEventDetailInfo.id}">
-								<span class="a">カートに入れる</span>
-							</button>
-						</form>
-					</div>
+				<div class="text-center row">
+					<form class="col" action="SiteAddToCart" method="post">
+						<button class="btn btncolor1" type="submit" name="event_id" value="${beansEventDetailInfo.id}">カートに入れる</button>
+					</form>
+					<c:if test="${beansUserInfoAccount.login_id == 'admin'}">
+						<a href="MasterEventUpdate?event_id=${beansEventDetailInfo.id}" class="btn col btn2">イベントを更新する</a>
+						<a href="MasterEventDelete?event_id=${beansEventDetailInfo.id}" class="btn col btn-danger">イベントを削除する</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
 
 
 	</div>
-</div>

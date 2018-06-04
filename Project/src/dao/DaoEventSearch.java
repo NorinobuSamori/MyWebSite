@@ -200,7 +200,7 @@ public class DaoEventSearch {
 		PreparedStatement st = null;
 		try {
 			con = DBManager.getConnection();
-			st = con.prepareStatement("select count(*) as cnt from event_detail where title like ?");
+			st = con.prepareStatement("select count(*) as cnt from event_detail WHERE title like ?");
 			st.setString(1, "%" + searchWord + "%");
 			ResultSet rs = st.executeQuery();
 			double coung = 0.0;

@@ -7,6 +7,9 @@
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
 <footer class="page-footer ">
 	<div class="container">
 		Made by LIKEIT and after NORINOBU SAMORI

@@ -9,18 +9,15 @@
 <title>イベント詳細</title>
 <jsp:include page="/baselayout/head.jsp" />
 </head>
-<body class="color-lightgreen">
+<body class="background-color1">
 	<jsp:include page="/baselayout/header.jsp" />
-
-
 	<br>
 	<br>
-	<h1 class="text-center">イベント詳細</h1>
-	<br>
-
-
 	<div class="container ">
-		<jsp:include page="/event-tables/event-detail-table.jsp" />
+		<div class="card grey lighten-5">
+			<h1 class="text-center padding1">イベント詳細</h1>
+			<jsp:include page="/event-tables/event-detail-table.jsp" />
+		</div>
 	</div>
 
 

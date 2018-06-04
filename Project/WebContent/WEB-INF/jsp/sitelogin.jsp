@@ -8,7 +8,7 @@
 <title>ログインページ</title>
 <jsp:include page="/baselayout/head.jsp" />
 </head>
-<body>
+<body class="background-color1">
 	<jsp:include page="/baselayout/header.jsp" />
 
 	<jsp:include page="/baselayout/actionMessage.jsp" />
@@ -41,8 +41,8 @@
                         <br>
                     </div>
                     <div class="row">
-                        <div class="col ">
-                            <p class="align-right">
+                        <div class="col">
+                            <p class="text-right">
                                 <a href="UserInfoRegister">新規登録</a>
                             </p>
                         </div>

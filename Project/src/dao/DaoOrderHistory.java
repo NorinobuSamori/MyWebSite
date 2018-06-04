@@ -21,11 +21,11 @@ public class DaoOrderHistory {
 		try {
 			con = DBManager.getConnection();
 			st = con.prepareStatement(
-					"INSERT INTO user_order_history(user_id, total_fees, create_date) VALUES(?,?,?)",
+					"INSERT INTO user_order_history(user_id, total_fees, order_create_date) VALUES(?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, beansEventDetailInfo.getUser_id());
 			st.setInt(2, beansEventDetailInfo.getTotal_fees());
-			st.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+			st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 			st.executeUpdate();
 
 			ResultSet rs = st.getGeneratedKeys();////これでStatement.RETURN_GENERATED_KEYSを取得している
@@ -74,6 +74,7 @@ public class DaoOrderHistory {
 				beansEventDetailInfo.setUser_id(rs.getInt("user_id"));
 			}
 
+
 			System.out.println("searching BeansEventDetailInfo by order_id has been completed");
 
 			return beansEventDetailInfo;
@@ -96,36 +97,21 @@ public class DaoOrderHistory {
 			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = new ArrayList<BeansEventDetailInfo>();
 
 			st = con.prepareStatement(
-					"SELECT * FROM user_order_history"
-							+ " WHERE user_id = ?");
+					"SELECT * FROM user_order_history WHERE user_id = ?");
 			st.setInt(1, user_id);
 
 			ResultSet rs = st.executeQuery();
 
 
-
-
-//			while (rs.next()) {
-//				int id1 = rs.getInt("id");
-//				int user_id1 = rs.getInt("user_id");
-//                int total_fees = rs.getInt("total_fees");
-//                Date order_create_date = rs.getTimestamp("order_create_date");
-//
-//                BeansEventDetailInfo beansEventDetailInfo11 = new BeansEventDetailInfo(id1, user_id1,  total_fees, order_create_date);
-//                beansEventDetailInfoList.add(beansEventDetailInfo11);
-//
-//                System.out.println(order_create_date);
-//			}
-
-			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList22 = new ArrayList<BeansEventDetailInfo>();
 			while (rs.next()) {
 				BeansEventDetailInfo beansEventDetailInfo = new BeansEventDetailInfo();
+
 				beansEventDetailInfo.setId(rs.getInt("id"));
 				beansEventDetailInfo.setUser_id(rs.getInt("user_id"));
 				beansEventDetailInfo.setTotal_fees(rs.getInt("total_fees"));
 				beansEventDetailInfo.setOrder_create_date(rs.getTimestamp("order_create_date"));
 
-				beansEventDetailInfoList22.add(beansEventDetailInfo);
+				beansEventDetailInfoList.add(beansEventDetailInfo);
 			}
 
 

@@ -5,33 +5,29 @@
 <!DOCTYPE html>
 
 <nav class="header1 navbar">
-
-	<a href="MasterEventDelete" class="header-fonts2 display-inline">
-		MEDelete
+	<a href="Index" class="header-fonts2 display-inline">
+		ECE
 	</a>
-	<span class="margin1"></span>
-	<a href="MasterEventRegister" class="header-fonts2 display-inline">
-		MERegister
-	</a>
-	<span class="margin1"></span>
+	<div class="margin1"></div>
 	<a href="UserInfoManagementTop"
 		class="header-fonts2 display-inline">
-		UserList
+		ユーザー管理システム
 	</a>
-	<a href="SiteEventDetailInfo"
-		class="header-fonts2 display-inline">
-		UserList
-	</a>
-	<a href="SiteLogin" class="header-fonts2 display-inline">
-		ログインページ
-	</a> <span class="margin1"></span>
-	<a href="Index" class="header-fonts2 display-inline">
-		ロゴ
-	</a>
-	<span class="white">
-                    ${beansUserInfoAccount.login_id}
-	</span>
 
+	<div class="margin1"></div>
+
+	<div class="header-fonts2">
+		<c:if test="${beansUserInfoAccount != null}">
+			${beansUserInfoAccount.login_id}さん
+		</c:if>
+	</div>
+	<c:if test="${beansUserInfoAccount == null}">
+		<a href="SiteLogin" class="header-fonts2 display-inline">ログイン</a>
+	</c:if>
+	<c:if test="${beansUserInfoAccount != null}">
+		<a href="SiteLogout" class="header-fonts2 display-inline">ログアウト</a>
+	</c:if>
+	<a href="SiteEventHistory" class="header-fonts2 display-inline">SiteEventHistory</a>
 
 
 	<form  class="display-inline" action="SiteEventSearchResult">
@@ -41,28 +37,15 @@
 		<button  class="header-fonts2"> <i class="fas fa-search"></i></button>
 		</div>
 	</form>
-	<span class="margin1"></span>
+	<div class="margin1"></div>
 
 
 
-	<a href="???????" class="header-fonts2">
+	<a href="SiteInCart" class="header-fonts2">
 		<i class="fas fa-shopping-cart"></i>
 	</a>
-	<span class="margin2"></span>
-	<a href="???????" class="header-fonts2">
-		<i class="fas fa-sign-in-alt"></i>
-	</a>
-	<span class="margin2"></span>
-	<a href="UserInfoRegister" class="header-fonts2">
-		<i class="fas fa-user-plus"></i>
-	</a>
-	<span class="margin2"></span>
-	<a href="???????" class="header-fonts2">
-		E
-	</a>
-	<a href="???????" class="header-fonts2 display-inline">
-		ER
-	</a>
+	<div class="margin2"></div>
+
 
 
 

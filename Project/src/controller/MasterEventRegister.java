@@ -14,9 +14,6 @@ import javax.servlet.http.Part;
 
 import dao.EventDetailInfoDao;
 import templates.Addresses;
-//java.appletパッケージをimport宣言
-//Graphicsクラスはawtパッケージに属しているのでawtパッケージもimport宣言
-//Appletクラスを継承
 /**
  * スタート画面
  * @author d-yamaguchi
@@ -29,67 +26,65 @@ public class MasterEventRegister extends HttpServlet {
 ////	 @Override???
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
 		try {
-			 request.setCharacterEncoding("UTF-8");
-			 System.out.println("MasterEventRegister utf-8宣言直後");
+			 RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.MASTER_EVENT_REGISTER);
+			 dispatcher.forward(request, response);
 
-			Addresses.SysoCheck();
-			RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.MASTER_EVENT_REGISTER);
-			dispatcher.forward(request, response);
-
-
-			Addresses.SysoCheck();
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMessage", e.toString());
+			request.setAttribute("errorMessage", e.toString());
 			response.sendRedirect("Error");
 		}
 	}
 
 
 
-
-
-
-
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-          	request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		try {
 
-          	Part part = request.getPart("upLoadFileName");
-          	String name = this.getFileName(part);////下記のメソッドへジャンプ  確か、ファイルを取り扱うメソッドとのこと。
-          	part.write(name);
+			String title = request.getParameter("title");
+			////String upLoadFileName = request.getParameter("upLoadFileName");ではない
+			//System.out.println(name);
+			String summary = request.getParameter("summary");
+			String event_category = request.getParameter("event_category");
+			String schedule = request.getParameter("schedule");
+			String local_region = request.getParameter("local_region");
+			String fees = request.getParameter("fees");
+			String access = request.getParameter("access");
+			String qualification = request.getParameter("qualification");
+			String presenter = request.getParameter("presenter");
+			String organizer = request.getParameter("organizer");
 
 
+			Part part = request.getPart("upLoadFileName");
+			String name = this.getFileName(part);
+			part.write(name);
 
-          	String title = request.getParameter("title");
-    		////String upLoadFileName = request.getParameter("upLoadFileName");ではない
-    		//System.out.println(name);
-    		String summary = request.getParameter("summary");
-    		String event_category = request.getParameter("event_category");
-    		String schedule = request.getParameter("schedule");
-    		String local_region = request.getParameter("local_region");
-    		String fees = request.getParameter("fees");
-    		String access = request.getParameter("access");
-    		String qualification = request.getParameter("qualification");
-    		String presenter = request.getParameter("presenter");
-    		String organizer = request.getParameter("organizer");
 
-    		EventDetailInfoDao eventDetailInfoDao = new EventDetailInfoDao();
-    		boolean result = eventDetailInfoDao.InsertOneEventDetailInfo(title, name, summary, event_category,
-    	    		schedule, local_region, fees, access, qualification, presenter,
-    	    		organizer);
+			EventDetailInfoDao eventDetailInfoDao = new EventDetailInfoDao();
+			boolean result = eventDetailInfoDao.InsertOneEventDetailInfo(title, name, summary, event_category,
+					schedule, local_region, fees, access, qualification, presenter,
+					organizer);
 
-    		if(result == false) {
-    			request.setAttribute("errMsg", "入力された内容は正しくありません、もしくはMySQL上でエラーが起きております");
-    			RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.MASTER_EVENT_REGISTER);
-    			dispatcher.forward(request, response);
-    			return;
-    		}
+			if(result == false) {
+				request.setAttribute("errorMessage", "イベント登録に失敗しました");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.MASTER_EVENT_REGISTER);
+				dispatcher.forward(request, response);
+				return;
+			}
 
-    		//エラーが無かった場合
-    		response.sendRedirect("Index");
+			//エラーが無かった場合
+			response.sendRedirect("Index");
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", e.toString());
+			System.out.println("Error on MasterEventRegister.java catch at post");
+			response.sendRedirect("Error");
+		}
 
 
 	}

@@ -26,10 +26,13 @@ public class Index extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		try {
+
 			DaoEventSearch daoEventSearch = new DaoEventSearch();
-			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = daoEventSearch.SelectAllEventsByRandom(4);
+			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = daoEventSearch.SelectAllEventsByRandom(6);
+
 
 			request.setAttribute("beansEventDetailInfoList", beansEventDetailInfoList);
+
 
 			//セッションにsearchWordが入っていたら破棄する
 			String searchWord = (String)session.getAttribute("searchWord");
@@ -44,7 +47,8 @@ public class Index extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMessage", e.toString());
+			request.setAttribute("errorMessage", e.toString());
+			System.out.println("Error catch on Index");
 			response.sendRedirect("Error");
 		}
 	}

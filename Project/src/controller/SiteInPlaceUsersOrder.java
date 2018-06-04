@@ -14,7 +14,6 @@ import dao.DaoOrderHistory;
 import dao.DaoOrderHistoryKeys;
 import model.BeansEventDetailInfo;
 import model.BeansUserInfo;
-import templates.Addresses;
 
 /**
  * Servlet implementation class SitePlaceUsersOrder
@@ -32,7 +31,7 @@ public class SiteInPlaceUsersOrder extends HttpServlet {
     }
 
 
-////このServletで、SiteEventHistoryにジャンプさせる
+////このServletで、SiteEventHistory.javaにジャンプさせる
 
 
 	/**
@@ -52,7 +51,7 @@ public class SiteInPlaceUsersOrder extends HttpServlet {
 		 ////モデルはBuyResult.java
 
 		 try {
-			////ログインセッション確認
+			 	////ログインセッション確認
 				BeansUserInfo beansUserInfoAccount = (BeansUserInfo) session.getAttribute("beansUserInfoAccount");
 				if (beansUserInfoAccount == null) {
 					// Sessionにリターンページ情報を書き込む
@@ -61,40 +60,44 @@ public class SiteInPlaceUsersOrder extends HttpServlet {
 					response.sendRedirect("SiteLogin");
 					return;
 				}
-				//ログインセッションがあった場合、user_idをgetしてsetする
+				//ログインセッションがあった場合
 				BeansEventDetailInfo beansEventDetailInfo = new BeansEventDetailInfo();
+				//合計金額をgetしてsetする
+				beansEventDetailInfo = (BeansEventDetailInfo) session.getAttribute("beansEventDetailInfo");
+				beansEventDetailInfo.setTotal_fees(beansEventDetailInfo.getTotal_fees());
+				//user_idをgetしてsetする
 				beansEventDetailInfo.setUser_id(beansUserInfoAccount.getId());
 
-				// セッションからカート情報を取得する
-				ArrayList<BeansEventDetailInfo> inCartBeansEventDetailInfoList = (ArrayList<BeansEventDetailInfo>) session.getAttribute("inCartBeansEventDetailInfoList");
 
+
+				// セッションからカート情報を取得する
+				ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = (ArrayList<BeansEventDetailInfo>) session.getAttribute("beansEventDetailInfoList");
 
 				// 購入情報を登録
 				int order_id = DaoOrderHistory.insertOrder(beansEventDetailInfo);
 
 				// 購入詳細情報を購入情報IDに紐づけして登録
-				for (BeansEventDetailInfo inCartBeansEventDetailInfoListOne : inCartBeansEventDetailInfoList) {
+				for (BeansEventDetailInfo beansEventDetailInfoListOne : beansEventDetailInfoList) {
 					BeansEventDetailInfo beansEventDetailInfo22 = new BeansEventDetailInfo();
 					beansEventDetailInfo22.setOrder_id_key(order_id);
-					beansEventDetailInfo22.setEvent_id_key(inCartBeansEventDetailInfoListOne.getId());
+					beansEventDetailInfo22.setEvent_id_key(beansEventDetailInfoListOne.getId());
 					DaoOrderHistoryKeys.insertOrderHistoryKeysByBeans(beansEventDetailInfo22);
 				}
-
 
 				BeansEventDetailInfo orderHistory = DaoOrderHistory.getBeansEventDetailInfoByOrder_id(order_id);
 				session.setAttribute("orderHistory", orderHistory);
 
-				// 購入アイテム情報 //ここでカート情報由来ではないOrder情報から引き出してセットする
-				ArrayList<BeansEventDetailInfo> orderHistoryEvents = DaoOrderHistoryKeys.getBeansEventDetailInfoListByOrder_Id(order_id);
-				session.setAttribute("orderHistoryEvents", orderHistoryEvents);
+				// 購入アイテム情報 //ここでカート情報由来ではないorder情報から引き出してセットする
+				ArrayList<BeansEventDetailInfo> orderHistoryEventList = DaoOrderHistoryKeys.getBeansEventDetailInfoListByOrder_Id(order_id);
+				session.setAttribute("orderHistoryEventList", orderHistoryEventList);
 
 				//カートセッションをremoveする
-				session.removeAttribute("inCartBeansEventDetailInfoList");
-				request.getRequestDispatcher(Addresses.SITE_EVENT_HISTORY).forward(request, response);
+				session.removeAttribute("beansEventDetailInfoList");
+				response.sendRedirect("SiteEventHistory");
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("エラーメッセージ on SiteInPlaceUsersOrder.java");
-				session.setAttribute("errorMessage", e.toString());
+				request.setAttribute("errorMessage", e.toString());
 				response.sendRedirect("Error");
 			}
 

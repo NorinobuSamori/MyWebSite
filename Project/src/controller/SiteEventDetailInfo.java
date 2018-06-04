@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.EventDetailInfoDao;
 import model.BeansEventDetailInfo;
@@ -32,11 +33,12 @@ public class SiteEventDetailInfo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String event_id = request.getParameter("event_id");
 		EventDetailInfoDao eventDetailInfoDao = new EventDetailInfoDao();
 		BeansEventDetailInfo beansEventDetailInfo  = eventDetailInfoDao.SelectOneEventDetailInfo(event_id);
 
-		request.setAttribute("beansEventDetailInfo", beansEventDetailInfo);
+		session.setAttribute("beansEventDetailInfo", beansEventDetailInfo);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.SITE_EVENT_DETAIL_INFO);
 		dispatcher.forward(request, response);

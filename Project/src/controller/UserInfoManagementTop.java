@@ -33,31 +33,36 @@ public class UserInfoManagementTop extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-
-
-		// TODO 未実装：ログインセッションがない場合、ログイン画面にリダイレクトさせる
-		BeansUserInfo beansUserInfo = (BeansUserInfo)session.getAttribute("beansUserInfoAccount");
-		if(beansUserInfo == null){
-				System.out.println("UserInfoManagementTopからログイン画面へリダイレクト");
+		try {
+			////ログインセッション確認
+			BeansUserInfo beansUserInfoAccount = (BeansUserInfo) session.getAttribute("beansUserInfoAccount");
+			if (beansUserInfoAccount == null) {
+				// Sessionにリターンページ情報を書き込む
+				session.setAttribute("returnStrUrl", "UserInfoManagementTop");
+				// Login画面にリダイレクト
 				response.sendRedirect("SiteLogin");
 				return;
+			}
+			// ユーザ一覧情報を取得
+			UserInfoDao UserInfoDao = new UserInfoDao();
+			List<BeansUserInfo> beansUserInfoList = UserInfoDao.findAll();
+
+
+			// リクエストスコープにユーザ一覧情報をセット
+			request.setAttribute("beansUserInfoList", beansUserInfoList);
+
+
+			// ユーザ一覧のjspにフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.USER_INFO_MANAGEMENT_TOP);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", e.toString());
+			System.out.println("Error on uimt");
+			response.sendRedirect("Error");
 		}
-
-		// ユーザ一覧情報を取得
-		UserInfoDao UserInfoDao = new UserInfoDao();
-		List<BeansUserInfo> BeansUserInfoList = UserInfoDao.findAll();
-
-
-
-
-		// リクエストスコープにユーザ一覧情報をセット
-		request.setAttribute("BeansUserInfoList", BeansUserInfoList);
-
-
-		// ユーザ一覧のjspにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.USER_INFO_MANAGEMENT_TOP);
-		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -65,26 +70,40 @@ public class UserInfoManagementTop extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		try {
+			////ログインセッション確認
+			BeansUserInfo beansUserInfoAccount = (BeansUserInfo) session.getAttribute("beansUserInfoAccount");
+			if (beansUserInfoAccount == null) {
+				// Sessionにリターンページ情報を書き込む
+				session.setAttribute("returnStrUrl", "UserInfoManagementTop");
+				// Login画面にリダイレクト
+				response.sendRedirect("SiteLogin");
+				return;
+			}
 
 
-		String login_id = request.getParameter("login_id");
-		String name = request.getParameter("name");
-		String calendar1 = request.getParameter("calendar1");
-		String calendar2 = request.getParameter("calendar2");
+			String login_id = request.getParameter("login_id");
+			String name = request.getParameter("name");
+			String calendar1 = request.getParameter("calendar1");
+			String calendar2 = request.getParameter("calendar2");
 
 
-	// TODO  未実装：検索処理全般
 
-		UserInfoDao UserInfoDao = new UserInfoDao();
-		List<BeansUserInfo> searchList = UserInfoDao.findSearch(login_id, name, calendar1, calendar2);
+			UserInfoDao UserInfoDao = new UserInfoDao();
+			List<BeansUserInfo> searchList = UserInfoDao.findSearch(login_id, name, calendar1, calendar2);
+			// リクエストスコープにユーザ一覧情報をセット
+			request.setAttribute("beansUserInfoList", searchList);
 
-		// リクエストスコープにユーザ一覧情報をセット
-		request.setAttribute("BeansUserInfoList", searchList);
-
-
-		// ユーザ一覧のjspにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.USER_INFO_MANAGEMENT_TOP);
-		dispatcher.forward(request, response);
+			// ユーザ一覧のjspにフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.USER_INFO_MANAGEMENT_TOP);
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", e.toString());
+			System.out.println("error on uimt post");
+			response.sendRedirect("Error");
+		}
 
 	}
 

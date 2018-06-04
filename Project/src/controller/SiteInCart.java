@@ -37,28 +37,63 @@ public class SiteInCart extends HttpServlet {
 
 		 HttpSession session = request.getSession();
 		try {
-			ArrayList<BeansEventDetailInfo> inCartBeansEventDetailInfoList = (ArrayList<BeansEventDetailInfo>) session.getAttribute("inCartBeansEventDetailInfoList");
-			//セッションにカートがない場合カートを作成
-			if (inCartBeansEventDetailInfoList == null) {
-				inCartBeansEventDetailInfoList = new ArrayList<BeansEventDetailInfo>();
-				session.setAttribute("inCartBeansEventDetailInfoList", inCartBeansEventDetailInfoList);
+			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = (ArrayList<BeansEventDetailInfo>) session.getAttribute("beansEventDetailInfoList");
+
+
+
+			//セッションにカートがない場合、JSP側の特殊処理により、レジに進むボタンを消す
+			if(beansEventDetailInfoList == null) {
+				String actionMessage = "カートにイベントがありません";
+				String cartNullBySiteInCart = null;
+				System.out.println(actionMessage);
+				request.setAttribute("actionMessage", actionMessage);
+				request.setAttribute("cartNullBySiteInCart", cartNullBySiteInCart);
+				request.getRequestDispatcher(Addresses.SITE_IN_CART).forward(request, response);
+				System.out.println("siteincart"+cartNullBySiteInCart);
+			}else {
+				String cartNullBySiteInCart = "カート != null";
+				request.setAttribute("cartNullBySiteInCart", cartNullBySiteInCart);
 			}
 
 
 
+
 			String actionMessage = "";
-			//カートに商品が入っていないなら
-			if(inCartBeansEventDetailInfoList.size() == 0) {
-				actionMessage = "カートにイベントがありません";
+
+			//JSP側カートボタン表示特殊処理用
+			String cartAction = "cartAction";
+			request.setAttribute("cartAction", cartAction);
+
+			//カートイベント重複エラー表示用
+			String cartErrorActionMessage = (String) session.getAttribute("cartErrorActionMessage");
+			if(cartErrorActionMessage != null) {
+				//AddToCartにて重複エラーが起きていた場合
+				session.removeAttribute("cartErrorActionMessage");
+				request.setAttribute("errorMessage", cartErrorActionMessage);
+			}
+
+			//イベント追加成功用
+			String cartActionMessage = (String) session.getAttribute("cartActionMessage");
+			if(cartActionMessage != null) {
+				session.removeAttribute("cartActionMessage");
+				request.setAttribute("actionMessage", cartActionMessage);
+			}
+
+			//イベント削除成功用//cutSessionReturnStringを利用する必要あり
+			//イベント追加を同じ時系列で扱っているので不具合発生
+			String deleteFromCartActionMessage = (String) session.getAttribute("deleteFromCartActionMessage");
+			if(deleteFromCartActionMessage != null) {
+				session.removeAttribute("deleteFromCartActionMessage");
+				request.setAttribute("actionMessage", deleteFromCartActionMessage);
 			}
 
 
 			request.getRequestDispatcher(Addresses.SITE_IN_CART).forward(request, response);
 
 		} catch (Exception e) {
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 			e.printStackTrace();
-			session.setAttribute("errorMessage", e.toString());
+			request.setAttribute("errorMessage", e.toString());
+			System.out.println("Error on SiteInCart.java");
 			response.sendRedirect("Error");
 		}
 

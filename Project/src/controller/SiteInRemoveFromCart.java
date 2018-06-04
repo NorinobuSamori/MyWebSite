@@ -60,7 +60,7 @@ public class SiteInRemoveFromCart extends HttpServlet {
 			//対象のアイテム情報を取得
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMessage", e.toString());
+			request.setAttribute("errorMessage", e.toString());
 			response.sendRedirect("Error");
 		}
 

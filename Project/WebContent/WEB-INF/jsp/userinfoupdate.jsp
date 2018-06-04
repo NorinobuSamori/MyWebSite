@@ -7,17 +7,14 @@
 <title>ユーザー情報更新</title>
 <jsp:include page="/baselayout/head.jsp" />
 </head>
-<body>
+<body class="background-color1">
 	<jsp:include page="/baselayout/header.jsp" />
+    <br>
+    <br>
+	<div class="container card">
 
-
-        <br>
-        <br>
-        <h1 class="text-center">ユーザー情報更新</h1>
+        <h1 class="text-center padding1">ユーザー情報更新</h1>
         <jsp:include page="/baselayout/actionMessage.jsp" />
-        <br>
-        <br>
-
 
         <form class="container" action="UserInfoUpdate" method="post">
         	<input type="hidden" class="marginall" name="id" value="${BeansUserInfoScope.id}">
@@ -50,13 +47,11 @@
 
         </form>
 
-        <br><br><br>
         <div class="margin2">
             <a href="UserInfoManagementTop">戻る</a>
         </div>
-        <br><br><br><br><br><br><br>
 
-
-        <footer class="footer1">testテスト</footer>
+		</div>
+        <jsp:include page="/baselayout/footer.jsp" />
     </body>
 </html>

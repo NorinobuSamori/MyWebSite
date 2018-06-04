@@ -18,7 +18,7 @@ public class DaoOrderHistoryKeys {
 		try {
 			conn = DBManager.getConnection();
 			st = conn.prepareStatement(
-					"INSERT INTO user_order_history_keys(order_id,event_id) VALUES(?,?)");
+					"INSERT INTO user_order_history_keys(order_id,event_detail_id) VALUES(?,?)");
 			st.setInt(1, beansEventDetailInfo.getOrder_id_key());
 			st.setInt(2, beansEventDetailInfo.getEvent_id_key());
 			st.executeUpdate();
@@ -89,7 +89,7 @@ public class DaoOrderHistoryKeys {
 					"SELECT * "
 					+ " FROM user_order_history_keys"
 					+ " JOIN event_detail"
-					+ " ON user_order_history_keys.event_id = event_detail.id"
+					+ " ON user_order_history_keys.event_detail_id = event_detail.id"
 					+ " WHERE user_order_history_keys.order_id = ?");
 			st.setInt(1, order_id);
 

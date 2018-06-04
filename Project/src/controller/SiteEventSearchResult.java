@@ -44,7 +44,7 @@ System.out.println("33331111");
 System.out.println("44441111");
 
 			// 商品リストを取得 ページ表示分のみ
-			ArrayList<BeansEventDetailInfo> beansEventDetailInfoListOne = DaoEventSearch.getInstance().getAllSearchEventDetail(searchWord, pageNum, PAGE_MAX_ITEM_COUNT);
+			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = DaoEventSearch.getInstance().getAllSearchEventDetail(searchWord, pageNum, PAGE_MAX_ITEM_COUNT);
 System.out.println("55551111");
 			// 検索ワードに対しての総ページ数を取得
 			double eventCount = DaoEventSearch.getAllEventDetailCount(searchWord);
@@ -58,7 +58,7 @@ System.out.println("77771111");
 			request.setAttribute("pageMax", pageMax);
 			// 表示ページ
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("beansEventDetailInfoListOne", beansEventDetailInfoListOne);
+			request.setAttribute("beansEventDetailInfoList", beansEventDetailInfoList);
 
 			System.out.println();
 			System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
@@ -67,14 +67,14 @@ System.out.println("77771111");
 			System.out.println("eventCount" +" = "+ eventCount);
 			System.out.println("pageMax" +" = "+ pageMax);
 			System.out.println("pageNum" +" = "+ pageNum);
-			System.out.println("beansEventDetailInfoListOne" +" = "+ beansEventDetailInfoListOne);
+			System.out.println("beansEventDetailInfoList" +" = "+ beansEventDetailInfoList);
 
 
 
 			request.getRequestDispatcher(Addresses.SITE_EVENT_SEARCH_RESULT).forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMessage", e.toString());
+			request.setAttribute("errorMessage", e.toString());
 			response.sendRedirect("Error");
 		}
 

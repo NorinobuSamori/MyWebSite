@@ -16,6 +16,14 @@ public class Addresses {
 	// index
 	public static final String TOP_PAGE = "/WEB-INF/jsp/index.jsp";
 
+	public static final String ERROR_PAGE = "/WEB-INF/jsp/error.jsp";
+
+
+
+
+
+
+
 	public static final String SITE_EVENT_SEARCH_RESULT = "/WEB-INF/jsp/siteeventsearchresult.jsp";
 
 

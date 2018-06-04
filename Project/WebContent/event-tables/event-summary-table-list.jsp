@@ -6,7 +6,7 @@
 
 <c:forEach var="beansEventDetailInfoListOne"
 	items="${beansEventDetailInfoList}" begin="0">
-	<div class="card grey lighten-5 width1">
+	<div class="card grey lighten-5 width100">
 		<div class="class-table width2 border-radius ">
 			<div class="class-table-row ">
 				<div class="class-table-cell class-table-cell-left2">
@@ -42,13 +42,11 @@
 			<div class="class-table-row">
 				<div class=" class-table-cell class-table-cell-left1"></div>
 				<div class="class-table-cell class-table-cell-right1">
-					<div class="a">
-						<p class="align-center ">
-							<a
-								href="SiteEventDetailInfo?event_id=${beansEventDetailInfoListOne.id}"
-								class="btn col btncolor1 "> <span class="a">イベント詳細へ</span>
-							</a>
-						</p>
+					<div class="text-center">
+						<a href="SiteEventDetailInfo?event_id=${beansEventDetailInfoListOne.id}" class="btn col btncolor1 ">イベント詳細へ</a>
+						<c:if test="${cartAction != null}">
+							<a href="SiteDeleteFromCart?event_id=${beansEventDetailInfoListOne.id}" class="btn col btncolor1 ">カートから削除する</a>
+						</c:if>
 					</div>
 				</div>
 			</div>

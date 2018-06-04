@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 
 <c:if test="${errorMessage != null}" >
-   	<div class="alert alert-danger" role="alert">
+   	<div class="text-center alert alert-danger" role="alert">
   		${errorMessage}
 	</div>
 </c:if>
 
 <c:if test="${actionMessage != null}" >
-   	<div class="text-center" role="alert">
+   	<div class="text-center alert alert-success" role="alert">
   		${actionMessage}
 	</div>
 </c:if>
@@ -19,6 +19,3 @@
   		${smallActionMessage}
 	</div>
 </c:if>
-
-
-<%-- actionをifにして、errorMessageをelseにしないと、セッションスコープが常に呼び出されてしまう --%>

@@ -38,11 +38,10 @@ public class SiteLogin extends HttpServlet {
 		HttpSession session = request.getSession();
 		BeansUserInfo beansUserInfoAccount = (BeansUserInfo)session.getAttribute("beansUserInfoAccount");
 		if(beansUserInfoAccount != null){
-				System.out.println("一覧リダイレクト");
+				System.out.println("SiteLoginからIndexへリダイレクト");
 				response.sendRedirect("Index");
 				return;
 		}
-
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.SITE_LOGIN);
 		dispatcher.forward(request, response);
@@ -56,35 +55,32 @@ public class SiteLogin extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-
-			try {
+		try {
 			String login_id = request.getParameter("login_id");
 			String password = request.getParameter("password");
 
-
 			UserInfoDao UserInfoDao = new UserInfoDao();
 			BeansUserInfo beansUserInfoAccount = UserInfoDao.findByLoginInfo(login_id, password);
-
 			/** テーブルに該当のデータが見つからなかった場合 **/
 			if (beansUserInfoAccount == null) {
 				// リクエストスコープにエラーメッセージをセット
-				request.setAttribute("errMsg", "ログインIDまたはパスワードが異なります");
-				System.out.println("errmsgログインページへ on SiteLogin");
+				request.setAttribute("errorMessage", "ログインIDまたはパスワードが異なります");
+				System.out.println("errorMessageログインページへ on SiteLogin");
 				// ログインjspにフォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/sitelogin.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.SITE_LOGIN);
 				dispatcher.forward(request, response);
 				return;
 			}
-			else {
-				beansUserInfoAccount = UserInfoDao.SelectAllByLogin_id(login_id);
-
-				session.setAttribute("beansUserInfoAccount", beansUserInfoAccount);
-				String returnStrUrl = (String) session.getAttribute("returnStrUrl");
-				response.sendRedirect(returnStrUrl!=null?returnStrUrl:"Index");
-			}
+			beansUserInfoAccount = UserInfoDao.SelectAllByLogin_id(login_id);
+			session.setAttribute("beansUserInfoAccount", beansUserInfoAccount);
+			String returnStrUrl = (String) session.getAttribute("returnStrUrl");
+			System.out.println("SiteLoginから、" + "returnStrUrlである" + returnStrUrl + "にリダイレクト");
+			session.removeAttribute(returnStrUrl);
+			response.sendRedirect(returnStrUrl!=null?returnStrUrl:"Index");
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.setAttribute("errorMessage", e.toString());
+			request.setAttribute("errorMessage", e.toString());
+			System.out.println("on sitelogin catch post");
 			response.sendRedirect("Error");
 		}
 

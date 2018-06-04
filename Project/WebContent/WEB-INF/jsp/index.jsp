@@ -5,20 +5,29 @@
 <html>
 <head>
 <title>TOPページ</title>
+
 <jsp:include page="/baselayout/head.jsp" />
 </head>
-<body class="color-lightgreen">
+<body class="background-color1">
 	<jsp:include page="/baselayout/header.jsp" />
-
-
-    <br>
-    <br>
-    <h1 class="text-center">トップページタイトル</h1>
-    <br>
-
-
-
 	<div class="container">
+
+	    <br>
+	    <br>
+	    <div  class="text-center card grey lighten-5">
+		    <h1>トップページ </h1>
+		    <c:if test="${beansUserInfoAccount.login_id == 'admin'}">
+		    	<a href="MasterEventRegister" class="col padding1">イベントを新規登録する</a>
+		    </c:if>
+		</div>
+	    <br>
+
+
+	    <jsp:include page="/baselayout/actionMessage.jsp" />
+
+
+
+
 		<jsp:include page="/event-tables/event-summary-table-list.jsp" />
 	</div>
 

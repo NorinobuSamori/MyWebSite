@@ -9,18 +9,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import templates.Addresses;
+import templates.ProcessSession;
+
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class Error
  */
-@WebServlet("/SiteLogout")
-public class SiteLogout extends HttpServlet {
+@WebServlet("/Error")
+public class Error extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SiteLogout() {
+    public Error() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -29,8 +33,9 @@ public class SiteLogout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		session.removeAttribute("beansUserInfoAccount");
-		request.setAttribute("actionMessage", "ログアウトしました");
-		response.sendRedirect("SiteLogin");
+		String errorMessage = session.getAttribute("errorMessage") != null ? (String) ProcessSession.cutSessionReturnString(session, "errorMessage") : "不正なアクセス";
+		request.setAttribute("errorMessage", errorMessage);
+		request.getRequestDispatcher(Addresses.ERROR_PAGE).forward(request, response);
 	}
+
 }

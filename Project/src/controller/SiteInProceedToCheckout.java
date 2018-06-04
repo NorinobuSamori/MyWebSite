@@ -43,7 +43,6 @@ public class SiteInProceedToCheckout extends HttpServlet {
 		 request.setCharacterEncoding("UTF-8");
 		 HttpSession session = request.getSession();
 			try {
-
 				////ログインセッション確認
 				BeansUserInfo beansUserInfoAccount = (BeansUserInfo) session.getAttribute("beansUserInfoAccount");
 				if (beansUserInfoAccount == null) {
@@ -56,15 +55,19 @@ public class SiteInProceedToCheckout extends HttpServlet {
 
 
 				//最初に買い物かごセッションを取得
-				ArrayList<BeansEventDetailInfo> inCartBeansEventDetailInfoList = (ArrayList<BeansEventDetailInfo>) session.getAttribute("inCartBeansEventDetailInfoList");
+				ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = (ArrayList<BeansEventDetailInfo>) session.getAttribute("beansEventDetailInfoList");
+				if(beansEventDetailInfoList == null) {
+					String errorMessage = "カート";
+					System.out.println("カートnullによるSiteInProceedToCheckoutからカートページへリダイレクト");
+					request.setAttribute("errorMessage", errorMessage);
+					response.sendRedirect("SiteInCart");
+					return;
+				}
 
 				//合計金額をgetしてsetする
-				int totalFees = GetTotalFeesOfEvents.getTotalItemPrice(inCartBeansEventDetailInfoList);
+				int totalFees = GetTotalFeesOfEvents.getTotalItemPrice(beansEventDetailInfoList);
 				BeansEventDetailInfo beansEventDetailInfo = new BeansEventDetailInfo();
 				beansEventDetailInfo.setTotal_fees(totalFees);
-
-//				beansEventDetailInfo.setUserId((int) session.getAttribute("userId"));
-
 
 
 				//合計金額表示で利用
@@ -72,7 +75,8 @@ public class SiteInProceedToCheckout extends HttpServlet {
 				request.getRequestDispatcher(Addresses.SITE_IN_PROCEED_TO_CHECKOUT).forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
-				session.setAttribute("errorMessage", e.toString());
+				request.setAttribute("errorMessage", e.toString());
+				System.out.println("Error on ProceedToCheckout");
 				response.sendRedirect("Error");
 			}
 

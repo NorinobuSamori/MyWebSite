@@ -1,45 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <title>mastereventconfirm</title>
-    <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="../../css/cssfile/css11.css" rel="stylesheet" type="text/css">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
+<title>TOPページ</title>
+<jsp:include page="/baselayout/head.jsp" />
 </head>
-
-<body>
-    <nav class="navbar header1 ">
-        <!-- navbarを追加したら右寄りになった -->
-        <span class="header-fonts mr-auto">
-                mastereventconfirm
-            </span>
-
-        <form action="???url????" class="display-inline">
-            <span class="form-group ">
-                    <input type="text" class="  display-inline form-control22 " placeholder="Search" required name="login_id">
-                    <a href="???????" class="header-fonts2">
-                        <i class="fas fa-search"></i>
-                        <i class="fas fa-shopping-cart"></i>
-                        <i class="fas fa-sign-in-alt"></i>
-                        <i class="fas fa-user-plus"></i>
-                        <i class="fas fa-dollar-sign"></i>
-                        <i class="fas fa-trash"></i>
-                        <i class="fas fa-angle-down"></i>
-                    </a>
-                </span>
-        </form>
-
-    </nav>
-
+<body class="background-color1">
+	<jsp:include page="/baselayout/header.jsp" />
 
 
 
     <br>
     <br>
-    <h1 class="text-center">イベント登録確認</h1>
+    <h1 class="text-center card">イベント登録確認</h1>
     <br>
     <br>
     <br>
