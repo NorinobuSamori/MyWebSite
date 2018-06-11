@@ -148,35 +148,47 @@ public class DaoEventSearch {
 				st.setInt(1, startEventNum);
 				st.setInt(2, pageMaxItemCount);
 			} else {
-				// 商品名検索
-				st = con.prepareStatement("SELECT * FROM event_detail WHERE title LIKE ?  ORDER BY id ASC LIMIT ?,? ");
-				st.setString(1, "%" + searchWord  + "%");////なお、検索ワードに「%」もしくは「_」が入力されている場合はエラーが起きる
-				st.setInt(2, startEventNum);
-				st.setInt(3, pageMaxItemCount);
+				// イベント名全検索
+				st = con.prepareStatement("SELECT * FROM event_detail WHERE ( title LIKE ? ) OR ( summary LIKE ? ) OR ( event_category LIKE ? ) OR ( schedule LIKE ? ) OR ( local_region LIKE ? ) OR  ( fees LIKE ? ) OR ( access LIKE ? )  OR ( qualification LIKE ? ) OR ( presenter LIKE ? ) OR ( organizer LIKE ? )  ORDER BY id ASC LIMIT ?,? ");
+				st.setString(1, "%" + searchWord  + "%");
+				st.setString(2, "%" + searchWord  + "%");
+				st.setString(3, "%" + searchWord  + "%");
+				st.setString(4, "%" + searchWord  + "%");
+				st.setString(5, "%" + searchWord  + "%");
+				st.setString(6, "%" + searchWord  + "%");
+				st.setString(7, "%" + searchWord  + "%");
+				st.setString(8, "%" + searchWord  + "%");
+				st.setString(9, "%" + searchWord  + "%");
+				st.setString(10, "%" + searchWord  + "%");
+				st.setInt(11, startEventNum);
+				st.setInt(12, pageMaxItemCount);
 
 			}
+
+
 
 			ResultSet rs = st.executeQuery();
 			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = new ArrayList<BeansEventDetailInfo>();
 
 			while (rs.next()) {
-			BeansEventDetailInfo beansEventDetailInfo = new BeansEventDetailInfo();
+				BeansEventDetailInfo beansEventDetailInfo = new BeansEventDetailInfo();
 
-			beansEventDetailInfo.setId(rs.getInt("id"));
-			beansEventDetailInfo.setTitle(rs.getString("title"));
-			beansEventDetailInfo.setImg_name(rs.getString("img_name"));
-			beansEventDetailInfo.setSummary(rs.getString("summary"));
-			beansEventDetailInfo.setEvent_category(rs.getString("event_category"));
-			beansEventDetailInfo.setSchedule(rs.getString("schedule"));
-			beansEventDetailInfo.setLocal_region(rs.getString("local_region"));
-			beansEventDetailInfo.setFees(rs.getInt("fees"));
-			beansEventDetailInfo.setAccess(rs.getString("access"));
-			beansEventDetailInfo.setQualification(rs.getString("qualification"));
-			beansEventDetailInfo.setPresenter(rs.getString("presenter"));
-			beansEventDetailInfo.setOrganizer(rs.getString("organizer"));
+				beansEventDetailInfo.setId(rs.getInt("id"));
+				beansEventDetailInfo.setTitle(rs.getString("title"));
+				beansEventDetailInfo.setImg_name(rs.getString("img_name"));
+				beansEventDetailInfo.setSummary(rs.getString("summary"));
+				beansEventDetailInfo.setEvent_category(rs.getString("event_category"));
+				beansEventDetailInfo.setSchedule(rs.getString("schedule"));
+				beansEventDetailInfo.setLocal_region(rs.getString("local_region"));
+				beansEventDetailInfo.setFees(rs.getInt("fees"));
+				beansEventDetailInfo.setAccess(rs.getString("access"));
+				beansEventDetailInfo.setQualification(rs.getString("qualification"));
+				beansEventDetailInfo.setPresenter(rs.getString("presenter"));
+				beansEventDetailInfo.setOrganizer(rs.getString("organizer"));
 
-			beansEventDetailInfoList.add(beansEventDetailInfo);
+				beansEventDetailInfoList.add(beansEventDetailInfo);
 			}
+
 			System.out.println("get Items by itemName has been completed");
 			return beansEventDetailInfoList;
 		} catch (SQLException e) {
@@ -200,8 +212,17 @@ public class DaoEventSearch {
 		PreparedStatement st = null;
 		try {
 			con = DBManager.getConnection();
-			st = con.prepareStatement("select count(*) as cnt from event_detail WHERE title like ?");
+			st = con.prepareStatement("select count(*) as cnt FROM event_detail WHERE ( title LIKE ? ) OR ( summary LIKE ? ) OR ( event_category LIKE ? ) OR ( schedule LIKE ? ) OR ( local_region LIKE ? ) OR  ( fees LIKE ? ) OR ( access LIKE ? )  OR ( qualification LIKE ? ) OR ( presenter LIKE ? ) OR ( organizer LIKE ? )");
 			st.setString(1, "%" + searchWord + "%");
+			st.setString(2, "%" + searchWord  + "%");
+			st.setString(3, "%" + searchWord  + "%");
+			st.setString(4, "%" + searchWord  + "%");
+			st.setString(5, "%" + searchWord  + "%");
+			st.setString(6, "%" + searchWord  + "%");
+			st.setString(7, "%" + searchWord  + "%");
+			st.setString(8, "%" + searchWord  + "%");
+			st.setString(9, "%" + searchWord  + "%");
+			st.setString(10, "%" + searchWord  + "%");
 			ResultSet rs = st.executeQuery();
 			double coung = 0.0;
 			while (rs.next()) {

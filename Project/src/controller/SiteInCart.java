@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.BeansEventDetailInfo;
 import templates.Addresses;
+import templates.ProcessSession;
 
 /**
  * Servlet implementation class SiteInCart
@@ -40,9 +41,8 @@ public class SiteInCart extends HttpServlet {
 			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = (ArrayList<BeansEventDetailInfo>) session.getAttribute("beansEventDetailInfoList");
 
 
-
 			//セッションにカートがない場合、JSP側の特殊処理により、レジに進むボタンを消す
-			if(beansEventDetailInfoList == null) {
+			if(beansEventDetailInfoList == null || beansEventDetailInfoList.size() == 0 ) {//※NullErrorに要注意
 				String actionMessage = "カートにイベントがありません";
 				String cartNullBySiteInCart = null;
 				System.out.println(actionMessage);
@@ -50,12 +50,11 @@ public class SiteInCart extends HttpServlet {
 				request.setAttribute("cartNullBySiteInCart", cartNullBySiteInCart);
 				request.getRequestDispatcher(Addresses.SITE_IN_CART).forward(request, response);
 				System.out.println("siteincart"+cartNullBySiteInCart);
+				return;
 			}else {
 				String cartNullBySiteInCart = "カート != null";
 				request.setAttribute("cartNullBySiteInCart", cartNullBySiteInCart);
 			}
-
-
 
 
 			String actionMessage = "";
@@ -70,23 +69,36 @@ public class SiteInCart extends HttpServlet {
 				//AddToCartにて重複エラーが起きていた場合
 				session.removeAttribute("cartErrorActionMessage");
 				request.setAttribute("errorMessage", cartErrorActionMessage);
+				System.out.println("actionMessage = " + cartErrorActionMessage);
+				request.getRequestDispatcher(Addresses.SITE_IN_CART).forward(request, response);
+				return;
 			}
+
 
 			//イベント追加成功用
 			String cartActionMessage = (String) session.getAttribute("cartActionMessage");
 			if(cartActionMessage != null) {
 				session.removeAttribute("cartActionMessage");
 				request.setAttribute("actionMessage", cartActionMessage);
+				System.out.println("actionMessage = " + cartActionMessage);
+				request.getRequestDispatcher(Addresses.SITE_IN_CART).forward(request, response);
+				return;
 			}
 
 			//イベント削除成功用//cutSessionReturnStringを利用する必要あり
 			//イベント追加を同じ時系列で扱っているので不具合発生
-			String deleteFromCartActionMessage = (String) session.getAttribute("deleteFromCartActionMessage");
+			ProcessSession processSession = new ProcessSession();
+			String deleteFromCartActionMessage = (String) processSession.cutSessionReturnString(session, "deleteFromCartActionMessage");
+			//ArrayList<ItemDataBeans> cart = (ArrayList<ItemDataBeans>) EcHelper.cutSessionAttribute(session, "cart");
+
 			if(deleteFromCartActionMessage != null) {
+				System.out.println(deleteFromCartActionMessage + " はnullじゃない");
 				session.removeAttribute("deleteFromCartActionMessage");
 				request.setAttribute("actionMessage", deleteFromCartActionMessage);
+				System.out.println("actionMessage = " + deleteFromCartActionMessage);
+				request.getRequestDispatcher(Addresses.SITE_IN_CART).forward(request, response);
+				return;
 			}
-
 
 			request.getRequestDispatcher(Addresses.SITE_IN_CART).forward(request, response);
 

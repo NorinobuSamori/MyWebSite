@@ -20,61 +20,76 @@
 </head>
 <body class="background-color1">
 	<jsp:include page="/baselayout/header.jsp" />
-
-
-    <br>
-    <br>
-    <h1 class="text-center card"></h1>
-    ${searchWord}での検索結果${eventCount}件
-    <br>
-
 	<div class="container ">
-		<jsp:include page="/event-tables/event-summary-table-list.jsp" />
-	</div>
+
+	    <br>
+	    <br>
+	    <div class="card">
+		    <h1 class="text-center">検索結果</h1>
+		    "${searchWord}"での検索結果${eventCount}件 ${pageNum}ページ目
+		</div>
+	    <br>
+
+			<jsp:include page="/event-tables/event-summary-table-list.jsp" />
 
 
 
 
 
-	<div class="row text-center">
-			<ul class="pagination">
-				<!-- １ページ戻るボタン  -->
-				<c:if test="${pageNum == 1}">
-					<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
-				</c:if>
-				<c:if test="${pageNum != 1}">
-<%-- ここの${searchWord & page_num}でエラーが発生 消すとエラー解消 --%>
-				<li class="waves-effect"><a href="ItemSearchResult?search_word=${searchWord} &{page_num}=${pageNum - 1}"><i class="material-icons">chevron_left</i></a></li>
-				</c:if>
-				<!-- ページインデックス -->
-				<%
-					for (int j = pageNum - 5; j <= pageNum + 5; j++) {
-				%>
-				<!-- マイナスページが生成されないように -->
-				<%
-					if (j <= 0) {
-							j = 1;
+		<div class="card">
+			<div class="row justify-content-center page-index-size1">	<%-- cardの位置に注意 --%>
+					<!-- １ページ戻るボタン  -->
+					<c:if test="${pageNum == 1}">
+						<i class="fas fa-chevron-left"></i>
+					</c:if>
+					<c:if test="${pageNum != 1}">
+					<a href="SiteEventSearchResult?search_word=${searchWord}&page_num=${pageNum - 1}"><i class="fas fa-chevron-left"></i></a>
+					</c:if>
+
+
+
+
+					<%-- ----------------------------------------------------------------------------------------------------------------------- --%>
+
+
+
+					<!-- ページインデックス -->
+					<%
+						for (int j = pageNum - 5; j <= pageNum + 5; j++) {
+					%>
+					<!-- マイナスページが生成されないように -->
+					<%
+						if (j <= 0) {
+								j = 1;
+							}
+					%>
+					<%if (pageNum == j) {%> <%}%><a class="color-lightgreen page-index-button1" href="<%="SiteEventSearchResult?search_word=" + searchWord + "&page_num=" + j%>"><%=j%></a>
+					<!-- MAXを越さないように -->
+					<%
+						if (pageMax <= j) {
+								break;
+							}
+					%>
+					<%
 						}
-				%>
-				<li <%if (pageNum == j) {%> class="active" <%}%>><a href="<%="ItemSearchResult?search_word=" + searchWord + "&page_num=" + j%>"><%=j%></a></li>
-				<!-- MAXを越さないように -->
-				<%
-					if (pageMax <= j) {
-							break;
-						}
-				%>
-				<%
-					}
-				%>
-				<!-- 1ページ送るボタン -->
+					%>
 
-				<c:if test=" pageNum == pageMax || pageMax == 0) ">
-					<li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
-				</c:if>
-				<c:if test="pageNum != pageMax || pageMax != 0) ">
-					<li class="waves-effect"><a href="ItemSearchResult?search_word=${searchWord} &{page_num}=${pageNum + 1}"><i class="material-icons">chevron_right</i></a></li>
-				</c:if>
-			</ul>
+
+
+
+					<%-- ----------------------------------------------------------------------------------------------------------------------- --%>
+
+
+
+					<!-- 1ページ送るボタン -->
+
+					<c:if test="${pageNum == pageMax || pageMax == 0}">
+						<i class="fas fa-chevron-right"></i>
+					</c:if>
+					<c:if test="${pageNum != pageMax && pageMax != 0}">
+						<a href="SiteEventSearchResult?search_word=${searchWord}&page_num=${pageNum + 1}"><i class="fas fa-chevron-right"></i></a>
+					</c:if>
+			</div>
 		</div>
 
 
@@ -82,8 +97,7 @@
 
 
 
-
-
+	</div>
 
     <jsp:include page="/baselayout/footer.jsp" />
 </body>

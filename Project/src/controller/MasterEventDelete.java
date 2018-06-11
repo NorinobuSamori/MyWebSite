@@ -62,7 +62,7 @@ public class MasterEventDelete extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
+		HttpSession session = request.getSession();
 
 		String event_id = request.getParameter("event_id");
 
@@ -71,9 +71,8 @@ public class MasterEventDelete extends HttpServlet {
 		eventDetailInfoDao.DeleteOneEventDetailInfoById(event_id);
 
 
-		request.setAttribute("actionMessage","イベント削除に成功しました");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Index");
-		dispatcher.forward(request, response);
+		session.setAttribute("eventDeleteActionMessage","イベント削除に成功しました");
+		response.sendRedirect("Index");
 
 
 

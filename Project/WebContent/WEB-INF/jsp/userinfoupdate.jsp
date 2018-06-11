@@ -32,10 +32,10 @@
             <input type="password" class="form-control" id="exampleInputPassword2" name="password2">
             <br>
             ユーザー名
-            <input type="text" class="form-control" name="name" value="${BeansUserInfoScope.name}">
+            <input type="text" class="form-control" name="name" value="${BeansUserInfoScope.name}" required>
             <br>
             生年月日
-            <input type="date" class="form-control" name="birth_date" value="${BeansUserInfoScope.birth_date}">
+            <input type="date" class="form-control" name="birth_date" value="${BeansUserInfoScope.birth_date}" required>
             <br>
             <br>
             <div class="text-center">

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
+<input type="hidden" value="test actionMessage">
 <c:if test="${errorMessage != null}" >
    	<div class="text-center alert alert-danger" role="alert">
   		${errorMessage}

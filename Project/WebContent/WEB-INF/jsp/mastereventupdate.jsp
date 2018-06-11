@@ -14,11 +14,13 @@
 	<jsp:include page="/baselayout/header.jsp" />
 	<div class="container">
 
-		<br> <br> <br>
-		<h1 class="text-center card">
-			イベント更新
+		<br>
+		<br>
+		<br>
+		<div class="card">
+			<h1 class="text-center">イベント更新</h1>
 			<jsp:include page="/baselayout/actionMessage.jsp" />
-		</h1>
+		</div>
 
 		<div class="width100">
 
@@ -41,16 +43,16 @@
 					</div>
 					<br> 募集分類
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="event_category"
+						<textarea class="form-control" rows="3" name="event_category"
 							required>${beansEventDetailInfo.event_category}</textarea>
 					</div>
 					<br> スケジュール
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="schedule" required>${beansEventDetailInfo.schedule}</textarea>
+						<textarea class="form-control" rows="3" name="schedule" required>${beansEventDetailInfo.schedule}</textarea>
 					</div>
 					<br> 地域
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="local_region"
+						<textarea class="form-control" rows="3" name="local_region"
 							required>${beansEventDetailInfo.local_region}</textarea>
 					</div>
 					<br> 参加費用
@@ -72,11 +74,11 @@
 					</div>
 					<br> 講演者presenter
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="presenter" required>${beansEventDetailInfo.presenter}</textarea>
+						<textarea class="form-control" rows="3" name="presenter" required>${beansEventDetailInfo.presenter}</textarea>
 					</div>
 					<br> 主催organizer
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="organizer" required>${beansEventDetailInfo.organizer}</textarea>
+						<textarea class="form-control" rows="3" name="organizer" required>${beansEventDetailInfo.organizer}</textarea>
 					</div>
 
 					<input type="hidden" name="event_id" value="${beansEventDetailInfo.id}">

@@ -71,13 +71,14 @@ public class MasterEventRegister extends HttpServlet {
 					organizer);
 
 			if(result == false) {
-				request.setAttribute("errorMessage", "イベント登録に失敗しました");
+				request.setAttribute("errorMessage", "イベント新規登録に失敗しました");
 				RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.MASTER_EVENT_REGISTER);
 				dispatcher.forward(request, response);
 				return;
 			}
 
 			//エラーが無かった場合
+			session.setAttribute("eventRegistActionMessage", "イベント新規登録に成功しました");
 			response.sendRedirect("Index");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>イベント履歴</title>
+<title>マイページ</title>
 <jsp:include page="/baselayout/head.jsp" />
 </head>
 <body class="background-color1">
@@ -14,9 +14,11 @@
 
 	<br>
 	<br>
-	<h1 class="text-center card">イベント履歴</h1>
+	<div class="card">
+		<h1 class="text-center ">${beansUserInfoAccount.login_id}さんのマイページ</h1>
+		<jsp:include page="/baselayout/actionMessage.jsp" />
+	</div>
 	<br>
-	<jsp:include page="/baselayout/actionMessage.jsp" />
 	<br>
 
 
@@ -26,10 +28,6 @@
 					<button class="btn col btncolor1" type="submit">引き続きイベントを探す</button>
 				</form>
 			</div>
-			<span class="col  width50"></span> <span class="col  width50"></span>
-			<form action="UserInfoManagementTop" method="get">
-				<button class="btn  col btncolor1" type="submit">ユーザー一覧へ</button>
-			</form>
 		</div>
 
 

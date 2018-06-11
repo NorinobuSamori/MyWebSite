@@ -98,7 +98,8 @@ public class UserInfoUpdate extends HttpServlet {
 				dispatcher.forward(request, response);
 				return;
 			}
-		if(!password1.equals(password2)) {////	!=ではないので要注意
+
+			if(!password1.equals(password2)) {////	!=ではないので要注意
 				request.setAttribute("errMsg", "パスワードと確認用パスワードが一致しておりません");
 				//フォワード
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userinfoupdate.jsp");
@@ -114,7 +115,13 @@ public class UserInfoUpdate extends HttpServlet {
 
 
 			UserInfoDao UserInfoDao2 = new UserInfoDao();
-			UserInfoDao2.byUpdateInfo(login_id, password1, name, birth_date);
+			Boolean result =UserInfoDao2.byUpdateInfo(login_id, password1, name, birth_date);
+			if(result == false) {
+				request.setAttribute("errorMessage", "入力された内容は正しくありません");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.USER_INFO_UPDATE);
+				dispatcher.forward(request, response);
+				return;
+			}
 
 
 			response.sendRedirect("UserInfoManagementTop");

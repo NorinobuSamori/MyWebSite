@@ -251,7 +251,7 @@ public class EventDetailInfoDao {
 
 
 
-	public void UpdateOneEventDetailInfo(String id, String title, String img_name, String summary, String event_category,
+	public boolean UpdateOneEventDetailInfo(String id, String title, String img_name, String summary, String event_category,
 			String schedule, String local_region, String fees, String access, String qualification, String presenter,
 			String organizer ) {
 		Connection conn = null;
@@ -278,6 +278,7 @@ public class EventDetailInfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQLException on UpdateOneEventDetailInfo()");
+			return false;
 
 		} finally {
 			// データベース切断
@@ -290,6 +291,7 @@ public class EventDetailInfoDao {
 			}
 
 		}
+		return true;
 	}
 
 	//////---------------------------------------------------------------------------------------------

@@ -15,15 +15,13 @@
 	    <br>
 	    <br>
 	    <div  class="text-center card grey lighten-5">
-		    <h1>トップページ </h1>
+		    <h1>トップページ</h1>
+		    <jsp:include page="/baselayout/actionMessage.jsp" />
 		    <c:if test="${beansUserInfoAccount.login_id == 'admin'}">
 		    	<a href="MasterEventRegister" class="col padding1">イベントを新規登録する</a>
 		    </c:if>
 		</div>
 	    <br>
-
-
-	    <jsp:include page="/baselayout/actionMessage.jsp" />
 
 
 

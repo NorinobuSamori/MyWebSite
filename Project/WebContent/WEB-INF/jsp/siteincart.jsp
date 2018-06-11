@@ -15,6 +15,7 @@
 	    <br>
 	    <div class="text-center card">
 	    	<h1 >カートページ</h1>
+	    	<a href="Index" class="btn col btn2">引き続きイベントを探す</a>
 	    	<jsp:include page="/baselayout/actionMessage.jsp" />
 		</div>
 	    <br>
@@ -26,15 +27,13 @@
 		<c:if test="${cartNullBySiteInCart != null}" >
 			<div class="text-center row">
 
-				<a href="Index" class="btn col btn2">引き続きイベントを探す</a>
+
 		        <a href="SiteInProceedToCheckout" class="btn col btncolor1">レジに進む</a>
 		    </div>
 	    </c:if>
 	    <c:if test="${cartNullBySiteInCart == null}" >
 			<div class="text-center ">
-		        <a href="Index" class="btn col btncolor1 ">
-		            <span class="a">トップページに戻る</span>
-		        </a>
+		        <a href="Index" class="btn col btncolor1 ">引き続きイベントを探す</a>
 		    </div>
 	    </c:if>
 

@@ -18,14 +18,19 @@
 
 		<form action="UserInfoRegister" method="post">
 
-			ログインID <input type="text" class="form-control" name="login_id">
-			<br> パスワード <input type="password" class="form-control"
-				id="exampleInputPassword2" name="password1"> <br>
+			ログインID <input type="text" class="form-control" name="login_id" required>
+			<br>
+			パスワード <input type="password" class="form-control"
+				id="exampleInputPassword2" name="password1" required>
+				<br>
 			パスワード(確認) <input type="password" class="form-control"
-				id="exampleInputPassword2" name="password2"> <br> ユーザー名
-			<input type="text" class="form-control" name="name"> <br>
-			生年月日 <input type="date" class="form-control" name="birth_date">
-			<br> <br>
+				id="exampleInputPassword2" name="password2" required>
+				<br> ユーザー名
+			<input type="text" class="form-control" name="name" required>
+			<br>
+			生年月日 <input type="date" class="form-control" name="birth_date" required>
+			<br>
+			<br>
 			<div class="text-center">
 				<button type="submit" class="btn">
 					<span class="margin2">登録</span>

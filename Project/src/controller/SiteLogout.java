@@ -30,7 +30,7 @@ public class SiteLogout extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		session.removeAttribute("beansUserInfoAccount");
-		request.setAttribute("actionMessage", "ログアウトしました");
+		session.setAttribute("logoutActionMessage", "ログアウトしました");
 		response.sendRedirect("SiteLogin");
 	}
 }

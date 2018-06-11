@@ -16,18 +16,14 @@
 
 	<div class="margin1"></div>
 
-	<div class="header-fonts2">
-		<c:if test="${beansUserInfoAccount != null}">
-			${beansUserInfoAccount.login_id}さん
-		</c:if>
-	</div>
 	<c:if test="${beansUserInfoAccount == null}">
 		<a href="SiteLogin" class="header-fonts2 display-inline">ログイン</a>
 	</c:if>
 	<c:if test="${beansUserInfoAccount != null}">
 		<a href="SiteLogout" class="header-fonts2 display-inline">ログアウト</a>
+		<a href="SiteEventHistory" class="header-fonts2 display-inline">${beansUserInfoAccount.login_id}さんのマイページ</a>
 	</c:if>
-	<a href="SiteEventHistory" class="header-fonts2 display-inline">SiteEventHistory</a>
+
 
 
 	<form  class="display-inline" action="SiteEventSearchResult">

@@ -42,7 +42,10 @@ public class MasterEventUpdate extends HttpServlet {
 
 		String event_id = request.getParameter("event_id");
 
+		EventDetailInfoDao eventDetailInfoDao = new EventDetailInfoDao();
+		BeansEventDetailInfo beansEventDetailInfo  = eventDetailInfoDao.SelectOneEventDetailInfo(event_id);
 
+		session.setAttribute("beansEventDetailInfo", beansEventDetailInfo);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.MASTER_EVENT_UPDATE);
 		dispatcher.forward(request, response);
@@ -74,15 +77,11 @@ public class MasterEventUpdate extends HttpServlet {
 			String name = this.getFileName(part);
 			part.write(name);
 
-System.out.println("Update aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
 			EventDetailInfoDao eventDetailInfoDao = new EventDetailInfoDao();
-			eventDetailInfoDao.UpdateOneEventDetailInfo(event_id, title, name, summary, event_category,
-					schedule, local_region, fees, access, qualification, presenter,
-					organizer);
 
 
-			System.out.println("Update bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+
 
 
 			//詳細表サンプル表示用
@@ -95,6 +94,21 @@ System.out.println("Update aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 			session.setAttribute("beansEventDetailInfoList", beansEventDetailInfoList);
 
 
+			boolean result = eventDetailInfoDao.UpdateOneEventDetailInfo(event_id, title, name, summary, event_category,
+					schedule, local_region, fees, access, qualification, presenter,
+					organizer);
+
+			//イベント更新エラーが発生した場合
+			if(result == false) {
+				request.setAttribute("errorMessage", "イベント更新登録に失敗しました");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.MASTER_EVENT_UPDATE);
+				dispatcher.forward(request, response);
+				return;
+			}
+
+
+			//エラーが無かった場合
+			session.setAttribute("eventUpdateActionMessage", "イベント更新登録に成功しました");
 			response.sendRedirect("Index");
 
 		} catch (Exception e) {

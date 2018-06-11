@@ -68,7 +68,7 @@ public class UserInfoRegister extends HttpServlet {
 
 			if(login_id.equals("") || password1.equals("") || password2.equals("") || name.equals("") || birth_date.equals("")){////nullではない
 				request.setAttribute("errorMessage", "入力された内容は正しくありません");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.USER_INFO_REGISTER);
 				dispatcher.forward(request, response);
 				return;
 			}
@@ -76,7 +76,7 @@ public class UserInfoRegister extends HttpServlet {
 
 			if(!password1.equals(password2)) {////	!=ではないので要注意
 				request.setAttribute("errorMessage", "パスワードと確認用パスワードが一致しておりません");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.USER_INFO_REGISTER);
 				dispatcher.forward(request, response);
 				return;
 			}
@@ -86,7 +86,7 @@ public class UserInfoRegister extends HttpServlet {
 
 			if(result == false) {
 				request.setAttribute("errorMessage", "入力された内容は正しくありません");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.USER_INFO_REGISTER);
 				dispatcher.forward(request, response);
 				return;
 			}

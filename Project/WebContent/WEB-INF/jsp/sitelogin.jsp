@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -10,48 +11,40 @@
 </head>
 <body class="background-color1">
 	<jsp:include page="/baselayout/header.jsp" />
+	<div class="">
+		<br>
+		<br>
+		<div class="container">
+			<div class="text-center card grey lighten-5 width25rem">
+				<h1>ログイン</h1>
+				<jsp:include page="/baselayout/actionMessage.jsp" />
 
-	<jsp:include page="/baselayout/actionMessage.jsp" />
+				<br>
 
 
-    <div class="container">
-        <div class="col">
-            <div class="card grey lighten-5 width">
-                <form action="SiteLogin" method="POST">
-                    <p class="red-text align-center"></p>
 
-                    <span class="a">ログインID</span>
-                    <div class="a">
-                        <input type="text" class="form-control" placeholder="Enter ID" required name="login_id">
-                    </div>
-                    <br>
-                    <br> パスワード
-                    <div class="a">
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required name="password">
-                    </div>
 
-                    <br>
+				<form action="SiteLogin" method="POST">
 
-                    <div class="a">
-                        <p class="align-center ">
-                            <button class="btn col btncolor1 " type="submit" name="action">
-                                    <span class="a">ログイン</span>
-                                </button>
-                        </p>
-                        <br>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="text-right">
-                                <a href="UserInfoRegister">新規登録</a>
-                            </p>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <footer class="footer1">testテスト</footer>
+					ログインID <input type="text" class="form-control" placeholder="Enter ID" required name="login_id"> <br>
+					<br>
+					パスワード <input type="password" class="form-control"
+						id="exampleInputPassword1" placeholder="Password" required
+						name="password">
+					<br>
+
+					<p><button class="btn col btncolor1 " type="submit" name="action">ログイン</button></p>
+					<br>
+					<div class="row">
+						<div class="col">
+							<p class="text-right"><a href="UserInfoRegister">新規登録</a></p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<jsp:include page="/baselayout/footer.jsp" />
 </body>
 
 </html>

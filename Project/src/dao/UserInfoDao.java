@@ -38,7 +38,7 @@ public class UserInfoDao {
 			}
 			String login_id = rs.getString("login_id");
 			String password1 = rs.getString("password");
-			System.out.println("login_id = " + login_id);
+			System.out.println("暗号化される前のpassword = " + password + "on UserInfoDao");
 			return new BeansUserInfo(login_id, password1);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -243,7 +243,7 @@ public class UserInfoDao {
 
 
 
-	public void byUpdateInfo(String login_Id, String password, String name, String birth_date ) {////BeansUser→voidへ
+	public Boolean byUpdateInfo(String login_Id, String password, String name, String birth_date ) {////BeansUser→voidへ
 		Connection conn = null;
 		try {
 			conn = DBManager.getConnection();
@@ -263,7 +263,8 @@ public class UserInfoDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("SQLException e    e.printStackTrace();  9999");
+			System.out.println("SQLException on byUpdateInfo");
+			return false;
 
 		} finally {
 			// データベース切断
@@ -272,12 +273,12 @@ public class UserInfoDao {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					System.out.println("SQLException e    e.printStackTrace(); 10101010");
 
 				}
 			}
 
 		}
+		return true;
 	}
 
 	//////---------------------------------------------------------------------------------------------

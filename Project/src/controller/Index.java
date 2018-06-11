@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.DaoEventSearch;
 import model.BeansEventDetailInfo;
 import templates.Addresses;
+import templates.ProcessSession;
 
 /**
  * スタート画面
@@ -25,10 +26,11 @@ public class Index extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		ProcessSession processSession = new ProcessSession();
 		try {
 
 			DaoEventSearch daoEventSearch = new DaoEventSearch();
-			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = daoEventSearch.SelectAllEventsByRandom(6);
+			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = daoEventSearch.SelectAllEventsByRandom(20);
 
 
 			request.setAttribute("beansEventDetailInfoList", beansEventDetailInfoList);
@@ -40,6 +42,51 @@ public class Index extends HttpServlet {
 				session.removeAttribute("searchWord");
 			}
 
+
+			//Loginサーブレット上にあるreturnStrUrlセッションをremoveする
+			session.removeAttribute("returnStrUrl");
+
+
+
+
+
+
+
+
+
+
+
+
+
+			//イベント新規登録成功用
+			String eventRegistActionMessage = (String) processSession.cutSessionReturnString(session, "eventRegistActionMessage");
+			if(eventRegistActionMessage != null) {
+				request.setAttribute("actionMessage", eventRegistActionMessage);
+				System.out.println("actionMessage = " + eventRegistActionMessage + "on Index.java" );
+				request.getRequestDispatcher(Addresses.TOP_PAGE).forward(request, response);
+				return;
+			}
+
+
+			//イベント更新登録成功用
+			String eventUpdateActionMessage = (String) processSession.cutSessionReturnString(session, "eventUpdateActionMessage");
+			if(eventUpdateActionMessage != null) {
+				request.setAttribute("actionMessage", eventUpdateActionMessage);
+				System.out.println("actionMessage = " + eventUpdateActionMessage + "on Index.java" );
+				request.getRequestDispatcher(Addresses.TOP_PAGE).forward(request, response);
+				return;
+			}
+
+
+
+			//イベント削除成功用
+			String eventDeleteActionMessage = (String) processSession.cutSessionReturnString(session, "eventDeleteActionMessage");
+			if(eventDeleteActionMessage != null) {
+				request.setAttribute("actionMessage", eventDeleteActionMessage);
+				System.out.println("actionMessage = " + eventDeleteActionMessage + "on Index.java" );
+				request.getRequestDispatcher(Addresses.TOP_PAGE).forward(request, response);
+				return;
+			}
 
 
 

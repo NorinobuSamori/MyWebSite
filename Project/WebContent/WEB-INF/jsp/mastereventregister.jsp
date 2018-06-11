@@ -14,11 +14,14 @@
 	<jsp:include page="/baselayout/header.jsp" />
 	<div class="container">
 
-		<br> <br> <br>
-		<h1 class="text-center card">
-			イベント新規登録
+		<br>
+		<br>
+		<br>
+
+		<div class="card">
+			<h1 class="text-center">イベント新規登録</h1>
 			<jsp:include page="/baselayout/actionMessage.jsp" />
-		</h1>
+		</div>
 
 		<div class="width100">
 
@@ -42,16 +45,16 @@
 					</div>
 					<br> 募集分類event_category
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="event_category"
+						<textarea class="form-control" rows="3" name="event_category"
 							required></textarea>
 					</div>
 					<br> スケジュールschedule
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="schedule" required></textarea>
+						<textarea class="form-control" rows="3" name="schedule" required></textarea>
 					</div>
 					<br> 地域local_region
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="local_region"
+						<textarea class="form-control" rows="3" name="local_region"
 							required></textarea>
 					</div>
 					<br>
@@ -75,11 +78,11 @@
 					</div>
 					<br> 講演者presenter
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="presenter" required></textarea>
+						<textarea class="form-control" rows="3" name="presenter" required></textarea>
 					</div>
 					<br> 主催organizer
 					<div class="form-group">
-						<textarea class="form-control" rows="1" name="organizer" required></textarea>
+						<textarea class="form-control" rows="3" name="organizer" required></textarea>
 					</div>
 
 					<button class="btn  col btncolor1" type="submit">新規登録する</button>

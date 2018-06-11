@@ -93,6 +93,7 @@ public class SiteInPlaceUsersOrder extends HttpServlet {
 
 				//カートセッションをremoveする
 				session.removeAttribute("beansEventDetailInfoList");
+				session.setAttribute("orderedActionMessage", "決済が完了しました");
 				response.sendRedirect("SiteEventHistory");
 			} catch (Exception e) {
 				e.printStackTrace();

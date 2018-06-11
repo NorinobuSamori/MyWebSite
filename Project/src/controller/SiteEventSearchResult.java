@@ -30,7 +30,7 @@ public class SiteEventSearchResult extends HttpServlet {
     }
 
   //1ページに表示する商品数
-  	final static int PAGE_MAX_ITEM_COUNT = 8;
+  	final static int PAGE_MAX_ITEM_COUNT = 2;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
@@ -38,19 +38,17 @@ public class SiteEventSearchResult extends HttpServlet {
 			String searchWord = request.getParameter("search_word");
 			//表示ページ番号 未指定の場合 1ページ目を表示
 			int pageNum = Integer.parseInt(request.getParameter("page_num") == null ? "1" : request.getParameter("page_num"));
-System.out.println("33331111");
 			// 新たに検索されたキーワードをセッションに格納する
 			session.setAttribute("searchWord", searchWord);
-System.out.println("44441111");
 
 			// 商品リストを取得 ページ表示分のみ
 			ArrayList<BeansEventDetailInfo> beansEventDetailInfoList = DaoEventSearch.getInstance().getAllSearchEventDetail(searchWord, pageNum, PAGE_MAX_ITEM_COUNT);
-System.out.println("55551111");
+
 			// 検索ワードに対しての総ページ数を取得
 			double eventCount = DaoEventSearch.getAllEventDetailCount(searchWord);
-System.out.println("66661111");
+
 			int pageMax = (int) Math.ceil(eventCount / PAGE_MAX_ITEM_COUNT);
-System.out.println("77771111");
+
 
 			//総アイテム数
 			request.setAttribute("eventCount", (int) eventCount);

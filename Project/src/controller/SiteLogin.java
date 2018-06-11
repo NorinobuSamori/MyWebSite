@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.UserInfoDao;
 import model.BeansUserInfo;
 import templates.Addresses;
+import templates.ProcessSession;
 
 /**
  * Servlet implementation class LoginServlet
@@ -34,13 +35,23 @@ public class SiteLogin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
+		ProcessSession processSession = new ProcessSession();
 		BeansUserInfo beansUserInfoAccount = (BeansUserInfo)session.getAttribute("beansUserInfoAccount");
 		if(beansUserInfoAccount != null){
 				System.out.println("SiteLoginからIndexへリダイレクト");
 				response.sendRedirect("Index");
 				return;
+		}
+
+
+		//ログアウト用
+		String logoutActionMessage = (String) processSession.cutSessionReturnString(session, "logoutActionMessage");
+		if(logoutActionMessage != null) {
+			request.setAttribute("actionMessage", logoutActionMessage);
+			System.out.println("actionMessage = " + logoutActionMessage + "on SiteLogin.java" );
+			request.getRequestDispatcher(Addresses.SITE_LOGIN).forward(request, response);
+			return;
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(Addresses.SITE_LOGIN);
@@ -71,11 +82,25 @@ public class SiteLogin extends HttpServlet {
 				dispatcher.forward(request, response);
 				return;
 			}
+
+
+
 			beansUserInfoAccount = UserInfoDao.SelectAllByLogin_id(login_id);
 			session.setAttribute("beansUserInfoAccount", beansUserInfoAccount);
+
+
+
+
+
 			String returnStrUrl = (String) session.getAttribute("returnStrUrl");
 			System.out.println("SiteLoginから、" + "returnStrUrlである" + returnStrUrl + "にリダイレクト");
 			session.removeAttribute(returnStrUrl);
+
+
+
+
+
+
 			response.sendRedirect(returnStrUrl!=null?returnStrUrl:"Index");
 		} catch (Exception e) {
 			e.printStackTrace();

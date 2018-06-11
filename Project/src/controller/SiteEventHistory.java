@@ -14,6 +14,7 @@ import dao.DaoOrderHistory;
 import model.BeansEventDetailInfo;
 import model.BeansUserInfo;
 import templates.Addresses;
+import templates.ProcessSession;
 
 /**
  * Servlet implementation class SiteEventHistory
@@ -39,7 +40,7 @@ public class SiteEventHistory extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		request.setCharacterEncoding("UTF-8");
-
+		ProcessSession processSession = new ProcessSession();
 		try {
 			////ログインセッション確認
 			BeansUserInfo beansUserInfoAccount = new BeansUserInfo();
@@ -63,6 +64,20 @@ public class SiteEventHistory extends HttpServlet {
 
 			session.setAttribute("orderWhereUserBeansList", orderWhereUserBeansList);
 
+
+
+
+
+
+			//決済完了表示用
+			String orderedActionMessage = (String) processSession.cutSessionReturnString(session, "orderedActionMessage");
+			if(orderedActionMessage != null) {
+System.out.println("history" + "orderedActionMessage = " + orderedActionMessage);
+				request.setAttribute("actionMessage", orderedActionMessage);
+				System.out.println("actionMessage = " + orderedActionMessage + "on SiteEventHistory.java" );
+				request.getRequestDispatcher(Addresses.SITE_EVENT_HISTORY).forward(request, response);
+				return;
+			}
 
 			request.getRequestDispatcher(Addresses.SITE_EVENT_HISTORY).forward(request, response);
 

@@ -114,6 +114,11 @@
 .padding1{
 	padding: 10px 30px 25px 30px;
 }
+.page-index-button1{
+	padding: 6px 10px;
+	margin: 40px;
+	font-size: 30px;
+}
 .margin1{
 	padding: 10px 30px 25px 30px;
 }
@@ -128,8 +133,14 @@
     margin-top:20px;
     margin-bottom:30px;
 }
-.width{
-width: 24rem;
+.page-index-size1{
+
+}
+.max-width100{
+max-width: 100%;
+}
+.width25rem{
+	width: 25rem;
 }
 .btncolor1{
     background-color: orange;
@@ -177,6 +188,7 @@ background-color: #3bfa90;
 	z-index: -1;
 
 }
+
 
 
 /*-----------------------------------------------------------------------------以下div baseシリーズ----------------------*/
